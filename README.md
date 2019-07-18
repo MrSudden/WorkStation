@@ -7,6 +7,6 @@ i also love playing basketball at my leisure time.
 here's my bio data:
   Full Name: Alhassan Abdullahi Haruna
   Gender: M
-  Age: 21 yrs old
+  Age: 23 yrs old
   Status: Single
   
