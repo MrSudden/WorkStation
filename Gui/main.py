@@ -358,13 +358,14 @@ class Controller():
         course.setPeriod('9:00')
         course.setDay('Monday')
         self.saveCourse(course)
+        self.getCourseCodes()
 
     def getCourseCodes(self):
         doc = self.readfile('courses')
         lst = []
         for x in doc:
             lst.append(x)
-        return lst
+        print(lst)
 
     def getCourse(self, code):
         doc = self.readfile('courses')
@@ -424,7 +425,7 @@ class StackedWidgetUI(QStackedWidget):
         self.students.editBtn.clicked.connect(self.editBtnClicked)
         self.students.backBtn.clicked.connect(self.backStuBtnClicked)
         self.view.backBtn.clicked.connect(self.backVewBtnClicked)
-        self.select.list.itemClicked.connect(self.currentItemClicked('CPE526'))
+        # self.select.list.itemClicked.connect(self.currentItemClicked())
 
         self.addWidget(self.welcome)
         self.addWidget(self.select)
@@ -501,17 +502,18 @@ class StackedWidgetUI(QStackedWidget):
     def backVewBtnClicked(self):
         self.setCurrentIndex(4)
 
-    def currentItemClicked(self, code):
-        cour = self.con.getCourse(code)
-        self.course.course.setTitle(cour['title'])
-        self.course.course.setDay(cour['day'])
-        self.course.course.setCode(cour['code'])
-        self.course.course.setPeriod(cour['period'])
-        self.course.title = QLabel(self.course.course.getTitle())
-        self.course.code = QLabel(self.course.course.getCode())
-        self.course.day = QLabel(self.course.course.getDay())
-        self.course.period = QLabel(self.course.course.getPeriod())
-        self.setCurrentIndex(3)
+    # def currentItemClicked(self):
+    #     code = 'CPE526'
+    #     cour = self.con.getCourse(code)
+    #     self.course.course.setTitle(cour['title'])
+    #     self.course.course.setDay(cour['day'])
+    #     self.course.course.setCode(cour['code'])
+    #     self.course.course.setPeriod(cour['period'])
+    #     self.course.title = QLabel(self.course.course.getTitle())
+    #     self.course.code = QLabel(self.course.course.getCode())
+    #     self.course.day = QLabel(self.course.course.getDay())
+    #     self.course.period = QLabel(self.course.course.getPeriod())
+    #     self.setCurrentIndex(3)
 
 def main():
     app = QApplication(sys.argv)

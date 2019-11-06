@@ -1,4 +1,6 @@
 import sys
+import os
+import json as j
 from PyQt5.QtGui import QBrush, QPixmap, QPalette, QFont
 from PyQt5.QtWidgets import QApplication, QWidget, QStackedWidget, QComboBox, QLabel, QLineEdit, QFormLayout
 from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QPushButton,  QListWidget, QListWidgetItem, QScrollArea
@@ -157,14 +159,8 @@ class PartyForm1(QWidget):
         self.title = QLabel('Fill form for ')
         self.type = QLabel('Dummy')
         self.item1 = ''
-        self.item2 = ''
-        self.item3 = ''
-        self.item4 = ''
 
         self.item1LineEdit = QLineEdit()
-        self.item2LineEdit = QLineEdit()
-        self.item3LineEdit = QLineEdit()
-        self.item4LineEdit = QLineEdit()
 
         flay = QFormLayout()
         hlay0 = QHBoxLayout()
@@ -177,46 +173,11 @@ class PartyForm1(QWidget):
         hlay1.addWidget(self.title)
         hlay1.addWidget(self.type)
         flay.addRow(self.tr(self.item1), self.item1LineEdit)
-        flay.addRow(self.tr(self.item2), self.item2LineEdit)
-        flay.addRow(self.tr(self.item3), self.item3LineEdit)
-        flay.addRow(self.tr(self.item4), self.item4LineEdit)
         vlay.addSpacing(10)
         vlay.addLayout(hlay0)
         vlay.addLayout(hlay1)
         vlay.addLayout(flay)
-        vlay.addSpacing(10)
-        self.setLayout(vlay)
-
-class PartyForm2(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.backBtn = QPushButton('Back')
-        self.nxtBtn = QPushButton('Next')
-        self.title = QLabel('Fill form for ')
-        self.type = QLabel('Dummy')
-        self.item1 = ''
-        self.item2 = ''
-
-        self.item1LineEdit = QLineEdit()
-        self.item2LineEdit = QLineEdit()
-
-        flay = QFormLayout()
-        hlay0 = QHBoxLayout()
-        hlay1 = QHBoxLayout()
-        vlay = QVBoxLayout()
-
-        hlay0.addWidget(self.backBtn)
-        hlay0.addSpacing(15)
-        hlay0.addWidget(self.nxtBtn)
-        hlay1.addWidget(self.title)
-        hlay1.addWidget(self.type)
-        flay.addRow(self.tr(self.item1), self.item1LineEdit)
-        flay.addRow(self.tr(self.item2), self.item2LineEdit)
-        vlay.addSpacing(10)
-        vlay.addLayout(hlay0)
-        vlay.addLayout(hlay1)
-        vlay.addLayout(flay)
-        vlay.addSpacing(10)
+        vlay.addSpacing(50)
         self.setLayout(vlay)
 
 class Election():
@@ -566,6 +527,7 @@ class Voter():
         self.__name = ''
         self.__age = ''
         self.__lga = ''
+        self.__id = ''
         self.__state = ''
         self.__staid = ''
         self.__regstat = ''
@@ -611,6 +573,12 @@ class Voter():
 
     def getStaID(self):
         return self.__staid
+
+    def setID(self, name):
+        self.__id = name
+
+    def getID(self):
+        return self.__id
 
     def setRegStat(self, name):
         self.__regstat = name
@@ -799,14 +767,32 @@ class DeleteVoters(QWidget):
         vlay.addSpacing(20)
         self.setLayout(vlay)
 
-class Party(QWidget):
+class Parti():
     def __init__(self):
-        super().__init__()
-        self.title = QLabel('Dummy')
+        self.__title = 'Dummy'
+        self.__id = ''
         self._presidential = PresidentialCrew()
         self._governors = GovernorCrew()
         self._senators = SenatorialCrew()
         self._houseofreps = HouseOfRepsCrew()
+
+    def setID(self, name):
+        self.__id = name
+
+    def getID(self):
+        return self.__id
+
+    def setTitle(self, name):
+        self.__title = name
+
+    def getTitle(self):
+        return self.__title
+
+class Party(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.parti = Parti()
+        self.title = QLabel('Dummy')
         self.backBtn = QPushButton('Back')
         self.pres = QLabel('President')
         self.vpres = QLabel('Vice President')
@@ -830,34 +816,34 @@ class Party(QWidget):
 
         vlay3.addWidget(QLabel('Presidential'))
         vlay3.addWidget(self.pres)
-        vlay3.addWidget(QLabel(self._presidential.getPres()))
+        vlay3.addWidget(QLabel(self.parti._presidential.getPres()))
         vlay3.addWidget(self.vpres)
-        vlay3.addWidget(QLabel(self._presidential.getVPres()))
+        vlay3.addWidget(QLabel(self.parti._presidential.getVPres()))
         vlay3.addWidget(self.sent)
-        vlay3.addWidget(QLabel(self._senators.getSent()))
+        vlay3.addWidget(QLabel(self.parti._senators.getSent()))
         vlay4.addWidget(QLabel('Senatorial'))
         vlay4.addWidget(self.sent)
-        vlay4.addWidget(QLabel(self._senators.getSent()))
+        vlay4.addWidget(QLabel(self.parti._senators.getSent()))
         vlay4.addWidget(self.dsent)
-        vlay4.addWidget(QLabel(self._senators.getDSent()))
+        vlay4.addWidget(QLabel(self.parti._senators.getDSent()))
         vlay4.addWidget(self.clerk)
-        vlay4.addWidget(QLabel(self._senators.getClerk()))
+        vlay4.addWidget(QLabel(self.parti._senators.getClerk()))
         vlay4.addWidget(self.whip)
-        vlay4.addWidget(QLabel(self._senators.getWhip()))
+        vlay4.addWidget(QLabel(self.parti._senators.getWhip()))
         vlay5.addWidget(QLabel('House of Reps'))
         vlay5.addWidget(self.speak)
-        vlay5.addWidget(QLabel(self._houseofreps.getSpeak()))
+        vlay5.addWidget(QLabel(self.parti._houseofreps.getSpeak()))
         vlay5.addWidget(self.dspeak)
-        vlay5.addWidget(QLabel(self._houseofreps.getDSpeak()))
+        vlay5.addWidget(QLabel(self.parti._houseofreps.getDSpeak()))
         vlay5.addWidget(self.clerk)
-        vlay5.addWidget(QLabel(self._houseofreps.getClerk()))
+        vlay5.addWidget(QLabel(self.parti._houseofreps.getClerk()))
         vlay5.addWidget(self.whip)
-        vlay5.addWidget(QLabel(self._houseofreps.getWhip()))
+        vlay5.addWidget(QLabel(self.parti._houseofreps.getWhip()))
         vlay6.addWidget(QLabel('Governors'))
         vlay6.addWidget(self.govn)
-        vlay6.addWidget(QLabel(self._governors.getGovr()))
+        vlay6.addWidget(QLabel(self.parti._governors.getGovr()))
         vlay6.addWidget(self.dgovn)
-        vlay6.addWidget(QLabel(self._governors.getDGovr()))
+        vlay6.addWidget(QLabel(self.parti._governors.getDGovr()))
         vlay1.addLayout(vlay3)
         vlay1.addSpacing(10)
         vlay1.addLayout(vlay5)
@@ -909,7 +895,7 @@ class SenatorialCrew():
     def getSent(self):
         return self.__sent
 
-    def setdsent(self, name):
+    def setDSent(self, name):
         self.__dsent = name
 
     def getDSent(self):
@@ -977,23 +963,105 @@ class HouseOfRepsCrew():
 
 class Controller:
     def __init__(self):
-        pass
+        voter = Voter()
+        parti = Parti()
+        parti.setTitle('Peoples Democratic Party')
+        parti.setID('PDP')
+        parti._presidential.setPres('Atiku Abubakar')
+        parti._presidential.setVPres('Yemi Olatunde')
+        parti._presidential.setSent('Joel Pikkins')
+        parti._senators.setSent('Bukola Saraki')
+        parti._senators.setDSent('Hassan Lawal')
+        parti._senators.setClerk('Patricia Isaac')
+        parti._senators.setWhip('Shedarack Jones')
+        parti._houseofreps.setSpeak('Saka Sami')
+        parti._houseofreps.setDSpeak('Nurudeen Yekeen')
+        parti._houseofreps.setClerk('James Josh')
+        parti._houseofreps.setWhip('Felcher Whipper')
+        parti._governors.setGovr('Julian Crous')
+        parti._governors.setDGovr('Aiden Lea Blackman')
+        voter.setName('Abdul Alhass')
+        voter.setID('VOT12345')
+        voter.setAge('20')
+        voter.setLGA('Lafia')
+        voter.setState('Nasarawa')
+        voter.setStaID('POLUN12')
+        voter.setRegStat('FCT Abuja')
+        voter.setLastPooling('Null')
+        voter.setRfid('Not Available')
+        voter.setLeftPrint('Not Available')
+        voter.setRightPrint('Not Available')
+        voter.setLeftIris('Not Available')
+        voter.setRightIris('Not Available')
+        sel = {
+            "president": "ANPP",
+            "govern": "CPC",
+            "senator": "ERD",
+            "houseofreps": "SPP"
+        }
+        voter.setSelection(sel)
+        self.getParty('PDP')
 
-    def show_voter(self):
-        self.voter = VotersPage()
-        self.voter.setGeometry(0, 0, 480, 320)
-        self.voter.switch_window.connect(self.show_main)
-        return self.voter
+    def getParty(self, par):
+        doc = self.readfile('parties')
+        for x in doc:
+            if x == par:
+                print(doc[x])
+        return {}
 
-    def show_main(self):
-        self.widget = ManagerPage()
-        self.widget.setGeometry(0, 0, 480, 320)
-        self.widget.switch_window.connect(self.show_voter)
-        return self.widget
+    def getPartyIDS(self):
+        doc = self.readfile('parties')
+        lst = []
+        for x in doc:
+            lst.append(x)
+        return lst
 
+    def saveParty(self, parti):
+        obj = {"title": parti.getTitle(), "id": parti.getID(), "presidential": {"president": parti._presidential.getPres(),
+        "vpresident": parti._presidential.getVPres(), "senator": parti._presidential.getSent()}, "senatorial": {"senator": parti._senators.getSent(),
+        "deputysenator": parti._senators.getDSent(), "clerk": parti._senators.getClerk(), "chiefwhip": parti._senators.getClerk()}, 
+        "governors": {"governor": parti._governors.getGovr(), "deputygovernor": parti._governors.getDGovr()}, "houseofreps": {"speaker": parti._houseofreps.getSpeak(),
+        "deputyspeaker": parti._houseofreps.getDSpeak(), "clerk": parti._houseofreps.getClerk(), "chiefwhip": parti._houseofreps.getClerk()}}
+        doc = {parti.getID(): obj}
+        self.savefile('parties', 'w', doc)
+
+    def getVoterIDS(self):
+        doc = self.readfile('voters')
+        lst = []
+        for x in doc:
+            lst.append(x)
+        return lst
+
+    def getVoter(self, id):
+        doc = self.readfile('voters')
+        for x in doc:
+            if x == id:
+                return doc[x]
+        return {}
+        
+    def saveVoter(self, voter):
+        obj = {"name": voter.getName(), "age": voter.getAge(), "lga": voter.getLGA(), "selection": voter.getSelection(),
+        "state": voter.getState(), "staid": voter.getStaID(), "regstat": voter.getRegStat(), "id": voter.getID(),
+        "lastpolling": voter.getLastPooling(), "rfid": voter.getRfid(), "leftprint": voter.getLeftPrint(),
+        "rightprint": voter.getRightPrint(), "leftiris": voter.getLeftIris(), "rightiris": voter.getRightIris()}
+        doc = {voter.getID(): obj}
+        self.savefile('voters', 'w', doc)
+
+    def savefile(self, name, mode, data):
+        with open(name + '.json', mode) as f:
+            j.dump(data, f, indent=4)
+        f.close()
+
+    def readfile(self, name):
+        with open(name + '.json') as f:
+            data = j.load(f)
+        f.close()
+        return data
+        
 class StackedWidgetUI(QStackedWidget):
     def __init__(self):
         super().__init__()
+        con = Controller()
         manager = ManagerPage()
         voters = VotersPage()
         election = ElectionPage()
@@ -1004,7 +1072,6 @@ class StackedWidgetUI(QStackedWidget):
         delete = DeleteVoters()
         parties = PartyPage()
         pf1 = PartyForm1()
-        pf2 = PartyForm2()
         party = Party()
         elections = Elections()
         electform = ElectionForm()
@@ -1028,8 +1095,6 @@ class StackedWidgetUI(QStackedWidget):
         parties.backBtn.clicked.connect(self.backParBtnClicked)
         pf1.backBtn.clicked.connect(self.backPF1BtnClicked)
         pf1.nxtBtn.clicked.connect(self.nxtPF1BtnClicked)
-        pf2.backBtn.clicked.connect(self.backPF2BtnClicked)
-        pf2.nxtBtn.clicked.connect(self.nxtPF2BtnClicked)
         elections.backBtn.clicked.connect(self.backEltsBtnClicked)
         elections.crtBtn.clicked.connect(self.crtEltsBtnClicked)
         electform.backBtn.clicked.connect(self.backEltfBtnClicked)
@@ -1067,7 +1132,6 @@ class StackedWidgetUI(QStackedWidget):
         self.addWidget(delete)
         self.addWidget(parties)
         self.addWidget(pf1)
-        self.addWidget(pf2)
         self.addWidget(party)
         self.addWidget(elections)
         self.addWidget(electform)
@@ -1117,12 +1181,6 @@ class StackedWidgetUI(QStackedWidget):
         self.setCurrentIndex(8)
 
     def nxtPF1BtnClicked(self):
-        self.setCurrentIndex(10)
-
-    def backPF2BtnClicked(self):
-        self.setCurrentIndex(9)
-
-    def nxtPF2BtnClicked(self):
         self.setCurrentIndex(11)
 
     def backEltsBtnClicked(self):

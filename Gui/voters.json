@@ -1,0 +1,23 @@
+{
+    "VOT12345": {
+        "name": "Abdul Alhass",
+        "age": "20",
+        "lga": "Lafia",
+        "selection": {
+            "president": "ANPP",
+            "govern": "CPC",
+            "senator": "ERD",
+            "houseofreps": "SPP"
+        },
+        "state": "Nasarawa",
+        "staid": "POLUN12",
+        "regstat": "FCT Abuja",
+        "id": "VOT12345",
+        "lastpolling": "Null",
+        "rfid": "Not Available",
+        "leftprint": "Not Available",
+        "rightprint": "Not Available",
+        "leftiris": "Not Available",
+        "rightiris": "Not Available"
+    }
+}

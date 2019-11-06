@@ -1,0 +1,27 @@
+{
+    "PDP": {
+        "title": "Peoples Democratic Party",
+        "id": "PDP",
+        "presidential": {
+            "president": "Atiku Abubakar",
+            "vpresident": "Yemi Olatunde",
+            "senator": "Joel Pikkins"
+        },
+        "senatorial": {
+            "senator": "Bukola Saraki",
+            "deputysenator": "Hassan Lawal",
+            "clerk": "Patricia Isaac",
+            "chiefwhip": "Patricia Isaac"
+        },
+        "governors": {
+            "governor": "Julian Crous",
+            "deputygovernor": "Aiden Lea Blackman"
+        },
+        "houseofreps": {
+            "speaker": "Saka Sami",
+            "deputyspeaker": "Nurudeen Yekeen",
+            "clerk": "James Josh",
+            "chiefwhip": "James Josh"
+        }
+    }
+}
