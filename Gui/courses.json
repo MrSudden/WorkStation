@@ -1,0 +1,26 @@
+{
+    "CPE523": {
+        "title": "Computer Hardware System Design",
+        "code": "CPE523",
+        "day": "Thursday",
+        "period": "14:00"
+    },
+    "CPE311": {
+        "title": "Computer Programming",
+        "code": "CPE311",
+        "day": "Monday",
+        "period": "9:00"
+    },
+    "CPE321": {
+        "title": "Software Engineering I",
+        "code": "CPE321",
+        "day": "Tuesday",
+        "period": "14:30"
+    },
+    "CPE526": {
+        "title": "Introduction to Mechatronics",
+        "code": "CPE526",
+        "day": "Wednesday",
+        "period": "08:00"
+    }
+}
