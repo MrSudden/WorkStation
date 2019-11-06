@@ -317,6 +317,7 @@ class Elections(QWidget):
 class ElectionForm(QWidget):
     def __init__(self):
         super().__init__()
+        self.title = QLabel('Fill the election details >>>')
         self.backBtn = QPushButton('Back')
         self.crtBtn = QPushButton('Create')
         self._election = Election()
@@ -349,7 +350,7 @@ class ElectionForm(QWidget):
 
         hlay0.addWidget(self.backBtn)
         hlay0.addSpacing(15)
-        hlay0.addWidget(self.nxtBtn)
+        hlay0.addWidget(self.crtBtn)
         hlay3.addWidget(self.typeLabel)
         hlay3.addWidget(self.typeLineEdit)
         hlay4.addWidget(self.titleLabel)
@@ -492,7 +493,7 @@ class GeneralVote(QWidget):
         hlay.addSpacing(15)
         hlay.addWidget(self.nxtBtn)
         vlay.addSpacing(15)
-        vlay.addWidget(hlay)
+        vlay.addLayout(hlay)
         vlay.addWidget(self.title)
         vlay.addWidget(self.info)
         vlay.addWidget(self.scroll)
@@ -725,7 +726,7 @@ class AddVoterForm2(QWidget):
         vlay.addLayout(formLayout)
         self.setLayout(vlay)
 
-class AddVoterForm3():
+class AddVoterForm3(QWidget):
     def __init__(self):
         super().__init__()
         self.nxtBtn = QPushButton('Next')
@@ -1045,12 +1046,12 @@ class StackedWidgetUI(QStackedWidget):
         finish.backBtn.clicked.connect(self.backFinBtnClicked)
         finish.voteBtn.clicked.connect(self.voteFinBtnClicked)
         endelect.doneBtn.clicked.connect(self.doneBtnClicked)
-        avf1.nxtBtn.clicked.connect(self.nxtADF1BtnClicked)
-        avf1.backBtn.clicked.connect(self.backADF1BtnClicked)
-        avf2.nxtBtn.clicked.connect(self.nxtADF2BtnClicked)
-        avf2.backBtn.clicked.connect(self.backADF2BtnClicked)
-        avf3.nxtBtn.clicked.connect(self.nxtADF3BtnClicked)
-        avf3.backBtn.clicked.connect(self.backADF3BtnClicked)
+        avf1.nxtBtn.clicked.connect(self.nxtAVF1BtnClicked)
+        avf1.backBtn.clicked.connect(self.backAVF1BtnClicked)
+        avf2.nxtBtn.clicked.connect(self.nxtAVF2BtnClicked)
+        avf2.backBtn.clicked.connect(self.backAVF2BtnClicked)
+        avf3.nxtBtn.clicked.connect(self.nxtAVF3BtnClicked)
+        avf3.backBtn.clicked.connect(self.backAVF3BtnClicked)
         voter.editBtn.clicked.connect(self.editVoterBtnClicked)
         voter.backBtn.clicked.connect(self.backVoterBtnClicked)
         delete.backBtn.clicked.connect(self.backDelBtnClicked)
@@ -1086,35 +1087,124 @@ class StackedWidgetUI(QStackedWidget):
         self.setCurrentIndex(2)
 
     def addBtnClicked(self):
-        # self.setCurrentIndex(0)
-        pass
+        self.setCurrentIndex(3)
 
     def vewedBtnClicked(self):
-        # self.setCurrentIndex(2)
-        pass
+        self.setCurrentIndex(7)
 
     def delBtnClicked(self):
-        # Not defined
-        pass
+        self.setCurrentIndex(7)
 
     def backBtnClicked(self):
         self.setCurrentIndex(0)
 
     def parBtnClicked(self):
-        self.setCurrentIndex(3)
-        pass
+        self.setCurrentIndex(8)
 
     def eleBtnCLicked(self):
-        # Not defined
-        pass
+        self.setCurrentIndex(12)
 
     def backParBtnClicked(self):
         self.setCurrentIndex(2)
-        pass
 
     def procBtnclicked(self):
-        # Not defined
+        self.setCurrentIndex(9)
+    
+    # def backParBtnClicked(self):
+    #     self.setCurrentIndex()
+
+    def backPF1BtnClicked(self):
+        self.setCurrentIndex(8)
+
+    def nxtPF1BtnClicked(self):
+        self.setCurrentIndex(10)
+
+    def backPF2BtnClicked(self):
+        self.setCurrentIndex(9)
+
+    def nxtPF2BtnClicked(self):
+        self.setCurrentIndex(11)
+
+    def backEltsBtnClicked(self):
+        self.setCurrentIndex(2)
+
+    def crtEltsBtnClicked(self):
+        self.setCurrentIndex(13)
+
+    def backEltfBtnClicked(self):
+        self.setCurrentIndex(12)
+
+    def crtEltfBtnClicked(self):
+        self.setCurrentIndex(14)
+
+    def backNewBtnClicked(self):
+        self.setCurrentIndex(12)
+
+    def addNewBtnClicked(self):
+        self.setCurrentIndex(15)
+
+    def startNewBtnClicked(self):
+        self.setCurrentIndex(16)
+
+    def backAEPBtnClicked(self):
+        self.setCurrentIndex(14)
+
+    def addAEPBtnClicked(self):
+        self.setCurrentIndex(14)
+
+    def backVoteBtnClicked(self):
+        self.setCurrentIndex(14)
+
+    def begVoteBtnClicked(self):
+        self.setCurrentIndex(17)
+
+    def backGenBtnClicked(self):
+        # self.setCurrentIndex()
         pass
+
+    def nxtGenBtnClicked(self):
+        self.setCurrentIndex(18)
+
+    def backFinBtnClicked(self):
+        # self.setCurrentIndex()
+        pass
+
+    def voteFinBtnClicked(self):
+        self.setCurrentIndex(19)
+
+    def doneBtnClicked(self):
+        self.setCurrentIndex(13)
+
+    def nxtAVF1BtnClicked(self):
+        self.setCurrentIndex(4)
+
+    def backAVF1BtnClicked(self):
+        self.setCurrentIndex(1)
+
+    def nxtAVF2BtnClicked(self):
+        self.setCurrentIndex(5)
+
+    def backAVF2BtnClicked(self):
+        self.setCurrentIndex(3)
+
+    def nxtAVF3BtnClicked(self):
+        self.setCurrentIndex(6)
+
+    def backAVF3BtnClicked(self):
+        self.setCurrentIndex(4)
+
+    def editVoterBtnClicked(self):
+        self.setCurrentIndex(3)
+
+    def backVoterBtnClicked(self):
+        self.setCurrentIndex(1)
+
+    def backDelBtnClicked(self):
+        self.setCurrentIndex(1)
+
+    def backPartyBtnClicked(self):
+        self.setCurrentIndex(8)
+
 
 def main():
     app = QApplication(sys.argv)
